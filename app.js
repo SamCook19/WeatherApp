@@ -1,15 +1,19 @@
 window.addEventListener('load', () => {
     let long;
-    let lat;
+    let city;
+    let apiKey;
+    let temperatureDescription = document.querySelector(".temperature-description");
+    let temperatureDegree = document.querySelector(".temperature-degree");
+    let locationTimezone = document.querySelector(".location-timezone")
 
     if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
+        navigator.geolocation.getCurrentPosition((position) => {
             long = position.coords.longitude;
-            lat = 37;
+            city = 'Cedar City';
             apiKey = '71caedaf0dd3f0097725f0b5344a19f3';
 
             const proxy = 'https://cors-anywhere.herokuapp.com/';
-            const api = `${proxy}api.openweathermap.org/data/2.5/weather?lat=${lat},&lon=${long}&appid=${apiKey}`;
+            const api = `${proxy}api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
             fetch (api)
             .then(data => {
                 return data.json()
@@ -17,12 +21,19 @@ window.addEventListener('load', () => {
             })
             .then(
                 data => {
-                    console.log(data)
+                    console.log(data);
+                    const { temp, feels_like, weather } = data.main;
+                    
+                    // Setting DOM elements from API
+
+                    temperatureDegree.textContent = temp
+                    temperatureDescription.textContent = feels_like
+                    locationTimezone.textContent = data.name
                 }
             )
         });
        
-    }else {
-        h1.textContent = "enable geolocation"
     }
+
+    
 });
