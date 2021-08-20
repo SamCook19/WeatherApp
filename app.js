@@ -12,8 +12,8 @@ window.addEventListener('load', () => {
             city = 'Cedar City';
             apiKey = '71caedaf0dd3f0097725f0b5344a19f3';
 
-            const proxy = 'https://cors-anywhere.herokuapp.com/';
-            const api = `${proxy}api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+            // const proxy = 'https://cors-anywhere.herokuapp.com/';
+            const api = `api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
             fetch (api)
             .then(data => {
                 return data.json()
